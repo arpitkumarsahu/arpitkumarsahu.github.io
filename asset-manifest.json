@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.77f495b8.css",
+    "main.css": "/static/css/main.a8405aa3.css",
     "main.js": "/static/js/main.c863b8c4.js",
     "static/css/580.0d3f5581.chunk.css": "/static/css/580.0d3f5581.chunk.css",
     "static/js/580.d09013c0.chunk.js": "/static/js/580.d09013c0.chunk.js",
@@ -22,13 +22,13 @@
     "static/media/JVJC-logo.jfif": "/static/media/JVJC-logo.b3bae0350dda89480657.jfif",
     "static/media/skill.svg": "/static/media/skill.35a147662ab0a1d15e579690446e0258.svg",
     "index.html": "/index.html",
-    "main.77f495b8.css.map": "/static/css/main.77f495b8.css.map",
+    "main.a8405aa3.css.map": "/static/css/main.a8405aa3.css.map",
     "main.c863b8c4.js.map": "/static/js/main.c863b8c4.js.map",
     "580.0d3f5581.chunk.css.map": "/static/css/580.0d3f5581.chunk.css.map",
     "580.d09013c0.chunk.js.map": "/static/js/580.d09013c0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.77f495b8.css",
+    "static/css/main.a8405aa3.css",
     "static/js/main.c863b8c4.js"
   ]
 }
