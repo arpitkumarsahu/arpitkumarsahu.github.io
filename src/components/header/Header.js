@@ -27,9 +27,20 @@ function Header() {
   const viewProjects = bigProjects.display;
   const viewEducation = educationInfo.display;
 
+  const handleClick = ()=>{
+    window.open("https://drive.google.com/file/d/1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U/view?usp=sharing")
+    const url = "https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download";
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'file.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
+
   return (
     <>
-      <header className={isDark ? "dark-menu header" : "header"}>
+      <header id = "nav-menu" className={isDark ? "dark-menu header" : "header"}>
         <a href="/" className="logo">
           <span className="grey-color"> &lt;</span>
           <span className="logo-name">{greeting.username}</span>
@@ -45,11 +56,11 @@ function Header() {
         </label>
         <ul className={isDark ? "dark-menu menu" : "menu"}>
           <li>
-            <a href="https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download">Resume</a>
+            <a onClick={handleClick} >Resume</a>
           </li>
           {viewGreeting && (
             <li>
-              <a href="#greeting">About</a>
+              <a href="#greeting">Home</a>
             </li>
           )}
           {viewSkills && (
@@ -60,7 +71,7 @@ function Header() {
 
           {viewEducation && (
             <li>
-              <a href="#education">Education</a>
+              <a href="#education">About me</a>
             </li>
           )}
 

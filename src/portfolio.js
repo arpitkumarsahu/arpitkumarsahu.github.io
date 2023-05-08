@@ -5,7 +5,6 @@
 import emoji from "react-easy-emoji";
 import Nalco from "./assets/images/Nalco.png";
 
-
 const illustration = {
   animated: true, // set to false to use static SVG
 };
@@ -14,7 +13,7 @@ const greeting = {
   username: "Arpit Kumar Sahu",
   title: "Hi all, I'm Arpit",
   subTitle: emoji(
-    "A passionate Full Stack Web Developer 🚀 having an experience of designing and building Web applications with HTML5, CSS3, JavaScript, React.js, Node.js, Express.js and MongoDB."
+    "A passionate Full Stack Web Developer  having an experience of designing and building Web applications with HTML5, CSS3, JavaScript, React.js, Node.js, Express.js and MongoDB."
   ),
   resumeLink:
     "https://drive.google.com/file/d/1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U/view?usp=sharing",
@@ -29,7 +28,7 @@ const socialMediaLinks = {
   gmail: "aarpitkumarsahu99@gmail.com",
   // gitlab: "https://gitlab.com/",
   // facebook: "https://www.facebook.com/"
-  instagram: "https://www.instagram.com/arpit_kumar_sahu/",
+  // instagram: "https://www.instagram.com/arpit_kumar_sahu/",
   twitter: "https://twitter.com/AarpitKumarSahu",
   display: true, // Set true to display this section, defaults to false
 };
@@ -38,15 +37,13 @@ const socialMediaLinks = {
 
 const skillsSection = {
   title: "What I do",
-  subTitle: "CRAZY FULL STACK WEB DEVELOPER WHO WANTS TO EXPLORE EVERY TECH STACK",
+  subTitle:
+    "CRAZY FULL STACK WEB DEVELOPER WHO WANTS TO EXPLORE EVERY TECH STACK",
   skills: [
-    emoji(
-      "⚡ Develope highly interactive Front-end / User Interfaces for your web and mobile applications."
-    ),
-    emoji("⚡ Deals with the internal content of the system, the server technologies - database, architecture, software logic."
-    ),
-    emoji("⚡ Progressive Web Applications ( PWA ) in normal and SPA Stacks."),
-    emoji("⚡ Integration of third party services such as Firebase"),
+    "⚡ Develope highly interactive Front-end / User Interfaces for your web and mobile applications.",
+    "⚡ Deals with the internal content of the system, the server technologies - database, architecture, software logic.",
+    "⚡ Progressive Web Applications Progressive Web App ( PWA ) in normal and Single page App (SPA) Stacks.",
+    "⚡ Integration of third party services such as Firebase",
   ],
 
   /* Make Sure to include correct Font Awesome Classname to view your icon
@@ -102,8 +99,7 @@ const educationInfo = {
       logo: require("./assets/images/IGIT.jpeg"),
       subHeader: "Bachelor in Electrical Engineering",
       duration: "August 2017 - May 2021",
-      desc:
-        " Took courses about Electrical Engineering, Electrical machines, Control Systems, Microelectronics and Microprocessors...",
+      desc: " Took courses about Electrical Engineering, Electrical machines, Control Systems, Microelectronics and Microprocessors...",
     },
     {
       schoolName: "Jyoti Vihar Junior College, Burla",
@@ -158,10 +154,9 @@ const workExperiences = {
       company: "National Aluminium Company Limited (NALCO) , Damanjodi",
       companylogo: Nalco,
       date: "June 2019 – July 2019",
-      desc:
-        "National Aluminium Company (NALCO) Damanjodi, a company that was established to harness the bauxite-rich deposits of the Panchpatmali Range.",
+      desc: "National Aluminium Company (NALCO) Damanjodi, a company that was established to harness the bauxite-rich deposits of the Panchpatmali Range.",
       descBullets: [],
-    }
+    },
   ],
 };
 
@@ -182,11 +177,63 @@ const bigProjects = {
   subtitle: "SOME OF MY PROJECTS",
   projects: [
     {
+      image: require("./assets/images/TheHindu.png"),
+      projectName: "The Hindu-clone",
+      projectDesc:
+        "Inspired from thehindu.com . It is a news website that provide news from all domains of life that can be accessed on the click of a button . ",
+      tech: " Tech Stack : React , Redux , Styled Component , html , Css , Javascript ",
+      footerLink: [
+        {
+          name: "Visit Website",
+          url: "https://thehindu.netlify.app/",
+        },
+        {
+          name: "GitHub Repo",
+          url: "https://github.com/arpitkumarsahu/abashed-store-5188/tree/main/the-hindu",
+        },
+      ],
+    },
+    {
+      image: require("./assets/images/EngageBay.png"),
+      projectName: "EngageBay CLONE-clone",
+      projectDesc:
+        "Software is meant to solve problems. Complicated software only multiplies them. That is why we built EngageBay.",
+        tech: " Tech Stack : React , Redux , chkra UI , Styled Component , html , Css , Javascript . ",
+        footerLink: [
+        {
+          name: "Visit Website",
+          url: "https://brawny-base-7995-6r5h.vercel.app/",
+        },
+        {
+          name: "GitHub Repo",
+          url: "https://github.com/Sakil9051/-Engagebay-clone",
+        },
+      ],
+    },
+    {
+      image: require("./assets/images/Kickstarter.png"),
+      projectName: "Kickstarter-clone",
+      projectDesc:
+        "Inspired from kickstarter.com , It's where creators share new visions for creative work with the communities that will come together to fund them.",
+        tech: " Tech Stack : React , chkra UI , Styled Component , html , Css , Javascript . ",
+        footerLink: [
+        {
+          name: "Visit Website",
+          url: "https://kickstarteer.netlify.app/",
+        },
+        {
+          name: "Github Repo",
+          url: "https://github.com/arpitkumarsahu/KickStarter-Clone",
+        },
+      ],
+    },
+    {
       image: require("./assets/images/Fraazo.png"),
       projectName: "Fraazo-clone",
       projectDesc:
-        "Inspired from fraazo.com. It is an e-commerce website that follows a farm-to-fork model where it owns the entire back-end supply chain starting with farmers, and delivers them fresh to customers.Tech Stack : html, Css , Javascript ,LocalStorage .",
-      footerLink: [
+        "It is an e-commerce website that follows a farm-to-fork model where it owns the entire back-end supply chain starting with farmers, and delivers them fresh to customers.",
+        tech: " Tech Stack : html , Css , Javascript , localstorage . ",
+        footerLink: [
         {
           name: "Visit Website",
           url: "https://fraazoo.netlify.app/",
@@ -201,8 +248,9 @@ const bigProjects = {
       image: require("./assets/images/Youtube.png"),
       projectName: "Youtube-clone",
       projectDesc:
-        "Inspired from Youtube. You can watch what the world is watching , from the latest songs to most popular gaming videos,fashion,beauty,news,earning and many more . Tech stacks : html5 , css3, javascript , google api",
-      footerLink: [
+        "Inspired from Youtube. You can watch what the world is watching , from the latest songs to most popular gaming videos, fashion, beauty, news, earning and many more .",
+        tech: " Tech Stack : html , Css , Javascript . ",
+        footerLink: [
         {
           name: "Visit Website",
           url: "https://youtubee-clone.netlify.app/",
@@ -218,7 +266,8 @@ const bigProjects = {
       projectName: "Weather App",
       projectDesc:
         "A weather App where you can search weather of any city . Tech Stacks: html , css , javascript, weather API",
-      footerLink: [
+        tech: " Tech Stack : html , Css , Javascript . ",
+        footerLink: [
         {
           name: "Visit Website",
           url: "https://get-weather-app-clone.netlify.app/",
@@ -229,28 +278,14 @@ const bigProjects = {
         },
       ],
     },
-    {
-      image: require("./assets/images/TheHindu.png"),
-      projectName: "The Hindu-clone",
-      projectDesc:
-        "Inspired from thehindu.com . It is a news website that provide news from all domains of life that can be accessed on the click of a button .Tech Stack : React , Redux , Styled Component , html , Css , Javascript .",
-      footerLink: [
-        {
-          name: "Visit Website",
-          url: "https://thehindu.netlify.app/",
-        },
-        {
-          name: "GitHub Repo",
-          url: "https://github.com/arpitkumarsahu/abashed-store-5188/tree/main/the-hindu",
-        },
-      ],
-    },
+
     {
       image: require("./assets/images/Outlook.png"),
       projectName: "Outlook-clone",
       projectDesc:
         "Inspired from Outlook.com, it is an news website that bring news all around the world to your finger tips ,  made with JavaScript , HTML, and CSS .",
-      footerLink: [
+        tech: " Tech Stack : html , Css , Javascript . ",
+        footerLink: [
         {
           name: "Visit Website",
           url: "https://outlook-clone.netlify.app/",
@@ -260,22 +295,6 @@ const bigProjects = {
           url: "https://github.com/arpitkumarsahu/DemoOutlook",
         },
         //  you can add extra buttons here.
-      ],
-    },
-    {
-      image: require("./assets/images/Kickstarter.png"),
-      projectName: "Kickstarter-clone",
-      projectDesc:
-        "Inspired from kickstarter.com , It's where creators share new visions for creative work with the communities that will come together to fund them.",
-      footerLink: [
-        {
-          name: "Visit Website",
-          url: "https://kickstarteer.netlify.app/",
-        },
-        {
-          name: "Github Repo",
-          url: "https://github.com/arpitkumarsahu/KickStarter-Clone",
-        },
       ],
     },
   ],
@@ -368,7 +387,7 @@ const podcastSection = {
 };
 
 const contactInfo = {
-  title: emoji("Contact Me ☎️"),
+  title: "Contact Me ☎️",
   subtitle:
     "Discuss a project or just want to say hi? My Inbox is open for all.",
   number: "9090516504",

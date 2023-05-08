@@ -19,6 +19,7 @@ import "./Main.css";
 import Profile from "./profile/Profile";
 import Calendar from "../components/Calender/Calendar";
 import Stats from "../components/Calender/Stats";
+import GithubCalendar from "../components/Calender/GithubCalendar";
 
 export default class Main extends Component {
   constructor(props) {
@@ -55,7 +56,8 @@ export default class Main extends Component {
           <WorkExperience />
           <Projects />
           <StartupProject />
-          <Calendar/>
+          {/* <Calendar/> */}
+          <GithubCalendar/>
           <Stats/>
           <Achievement />
           <Profile />

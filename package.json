@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
+    "@axetroy/react-github-calendar": "^2.0.0",
     "@colorthief/colorthief": "^3.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,7 +16,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-emoji": "^1.8.0",
-    "react-github-calendar": "^3.3.4",
+    "react-github-calendar": "^3.4.0",
     "react-headroom": "^3.2.1",
     "react-lottie": "^1.2.3",
     "react-reveal": "^1.2.2",

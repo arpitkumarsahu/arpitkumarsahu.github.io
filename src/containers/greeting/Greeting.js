@@ -21,6 +21,17 @@ export default function Greeting() {
   if (!greeting.displayGreeting) {
     return null;
   }
+
+  const handleClick = ()=>{
+    window.open("https://drive.google.com/file/d/1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U/view?usp=sharing")
+    const url = "https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download";
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'file.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
   return (
     <Fade bottom duration={1000} distance="40px">
       <div className="greet-main" id="greeting">
@@ -32,7 +43,7 @@ export default function Greeting() {
               >
                 {" "}
                 {greeting.title}{" "}
-                <span className="wave-emoji">{emoji("👋")}</span>
+                {/* <span className="wave-emoji">{emoji("👋")}</span> */}
               </h2>
               <p
                 className={
@@ -51,7 +62,7 @@ export default function Greeting() {
                   text="See my resume"
                   newTab={true}
                   href={greeting.resumeLink}
-                  onClick={"window.open('https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download')"}
+                  onClick={handleClick}
                 />
                 
                 

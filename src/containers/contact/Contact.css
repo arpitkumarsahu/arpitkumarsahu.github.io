@@ -64,6 +64,8 @@
   }
 
   .contact-subtitle {
+    width: 90%;
+    margin: auto;
     font-size: 16px;
     line-height: normal;
     text-align: center;
@@ -76,7 +78,10 @@
 
   .contact-detail,
   .contact-detail-email {
-    font-size: 20px;
+    
+    width: 90%;
+    margin: auto;
+    font-size: 16px;
   }
 
   .contact-image-div {

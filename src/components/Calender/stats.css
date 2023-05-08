@@ -1,0 +1,51 @@
+.streak_ap {
+  display: flex;
+  flex-direction: column;
+}
+.github_ap {
+  width: 60%;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 40px;
+  padding: 50px;
+}
+.image_ap {
+  max-width: 500px;
+  margin: auto;
+}
+
+.image_ap img {
+  width: 100%;
+}
+
+.githubcalander_ap{
+  padding: 50px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+ 
+
+}
+
+
+
+
+@media (max-width: 768px) {
+  .githubcalander_ap footer >div {
+    font-size: 12px;
+  }
+
+  .githubcalander_ap footer svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .githubcalander_ap footer  {
+    flex-direction: column;
+  }
+}
+

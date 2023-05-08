@@ -60,6 +60,9 @@ export default function StartupProject() {
                       }
                     >
                       {project.projectDesc}
+                      <br/>
+                      <br/>
+                      <b>{project.tech}</b>
                     </p>
                     {project.footerLink ? (
                       <div className="project-card-footer">
