@@ -177,6 +177,23 @@ const bigProjects = {
   subtitle: "SOME OF MY PROJECTS",
   projects: [
     {
+      image: require("./assets/images/zoomcar.png"),
+      projectName: "Zoom car-clone",
+      projectDesc:
+        "This is a Full-Stack Clone of car sharing platform Zoomcar , which has the functionality of booking a car in a city of your choice.",
+      tech: " Tech Stack : React , Redux ,HTML, CSS, Javascript, Chakra UI , nodejs, express, mongoDB  ",
+      footerLink: [
+        {
+          name: "Visit Website",
+          url: "https://quick-car.netlify.app/",
+        },
+        {
+          name: "GitHub Repo",
+          url: "https://github.com/arpitkumarsahu/Zoom-Car-Clone",
+        },
+      ],
+    },
+    {
       image: require("./assets/images/TheHindu.png"),
       projectName: "The Hindu-clone",
       projectDesc:
@@ -193,13 +210,14 @@ const bigProjects = {
         },
       ],
     },
+
     {
       image: require("./assets/images/EngageBay.png"),
       projectName: "EngageBay CLONE-clone",
       projectDesc:
         "Software is meant to solve problems. Complicated software only multiplies them. That is why we built EngageBay.",
-        tech: " Tech Stack : React , Redux , chkra UI , Styled Component , html , Css , Javascript . ",
-        footerLink: [
+      tech: " Tech Stack : React , Redux , chkra UI , Styled Component , html , Css , Javascript . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://brawny-base-7995-6r5h.vercel.app/",
@@ -215,8 +233,8 @@ const bigProjects = {
       projectName: "Kickstarter-clone",
       projectDesc:
         "Inspired from kickstarter.com , It's where creators share new visions for creative work with the communities that will come together to fund them.",
-        tech: " Tech Stack : React , chkra UI , Styled Component , html , Css , Javascript . ",
-        footerLink: [
+      tech: " Tech Stack : React , chkra UI , Styled Component , html , Css , Javascript . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://kickstarteer.netlify.app/",
@@ -232,8 +250,8 @@ const bigProjects = {
       projectName: "Fraazo-clone",
       projectDesc:
         "It is an e-commerce website that follows a farm-to-fork model where it owns the entire back-end supply chain starting with farmers, and delivers them fresh to customers.",
-        tech: " Tech Stack : html , Css , Javascript , localstorage . ",
-        footerLink: [
+      tech: " Tech Stack : html , Css , Javascript , localstorage . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://fraazoo.netlify.app/",
@@ -249,8 +267,8 @@ const bigProjects = {
       projectName: "Youtube-clone",
       projectDesc:
         "Inspired from Youtube. You can watch what the world is watching , from the latest songs to most popular gaming videos, fashion, beauty, news, earning and many more .",
-        tech: " Tech Stack : html , Css , Javascript . ",
-        footerLink: [
+      tech: " Tech Stack : html , Css , Javascript . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://youtubee-clone.netlify.app/",
@@ -266,8 +284,8 @@ const bigProjects = {
       projectName: "Weather App",
       projectDesc:
         "A weather App where you can search weather of any city . Tech Stacks: html , css , javascript, weather API",
-        tech: " Tech Stack : html , Css , Javascript . ",
-        footerLink: [
+      tech: " Tech Stack : html , Css , Javascript . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://get-weather-app-clone.netlify.app/",
@@ -284,8 +302,8 @@ const bigProjects = {
       projectName: "Outlook-clone",
       projectDesc:
         "Inspired from Outlook.com, it is an news website that bring news all around the world to your finger tips ,  made with JavaScript , HTML, and CSS .",
-        tech: " Tech Stack : html , Css , Javascript . ",
-        footerLink: [
+      tech: " Tech Stack : html , Css , Javascript . ",
+      footerLink: [
         {
           name: "Visit Website",
           url: "https://outlook-clone.netlify.app/",
