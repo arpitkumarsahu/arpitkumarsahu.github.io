@@ -9,7 +9,7 @@ import Reveal from "../reveal/Reveal";
  */
 export default function Timeline({items}) {
   const listRef = useRef(null);
-  const [open, setOpen] = useState(() => new Set([0]));
+  const [open, setOpen] = useState(() => new Set()); // all entries start collapsed
   const [reached, setReached] = useState(-1);
   const baseId = useId();
 
