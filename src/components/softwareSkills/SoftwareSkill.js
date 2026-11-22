@@ -1,26 +1,19 @@
 import React from "react";
 import "./SoftwareSkill.css";
 import {skillsSection} from "../../portfolio";
+import {appIconStyle} from "../../utils/appColors";
 
 export default function SoftwareSkill() {
   return (
-    <div>
-      <div className="software-skills-main-div">
-        <ul className="dev-icons">
-          {skillsSection.softwareSkills.map((skills, i) => {
-            return (
-              <li
-                key={i}
-                className="software-skill-inline"
-                name={skills.skillName}
-              >
-                <i className={skills.fontAwesomeClassname}></i>
-                <p>{skills.skillName}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
+    <ul className="app-grid">
+      {skillsSection.softwareSkills.map((skill, i) => (
+        <li key={skill.skillName} className="app-icon" style={{...appIconStyle(skill.skillName), "--i": i}}>
+          <span className="app-icon-tile">
+            <i className={skill.fontAwesomeClassname} aria-hidden="true"></i>
+          </span>
+          <span className="app-icon-label">{skill.skillName}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

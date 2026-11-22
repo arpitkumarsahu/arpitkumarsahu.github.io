@@ -1,61 +1,80 @@
-.skills-main-div {
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.bento .card {
+  padding: 28px;
+}
+
+.bento .card:hover {
+  border-color: var(--border-strong);
+}
+
+.bento-stack {
+  grid-column: span 2;
+}
+
+.bento-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.bento-tagline {
+  margin: 10px 0 24px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  max-width: 520px;
+}
+
+.bento-tagline::first-letter {
+  text-transform: uppercase;
+}
+
+.bento-skill {
   display: flex;
-  margin-top: 50px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
 }
 
-.skills-text-div {
-  margin-left: 50px;
+.bento-skill p {
+  color: var(--text-muted);
+  font-size: 15.5px;
+  line-height: 1.6;
 }
 
-.skills-main-div > * {
-  flex: 1;
-  margin-bottom: 30px;
+.bento-index {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft);
 }
 
-.skills-image-div > img {
-  max-width: 100%;
-  height: auto;
+@media (max-width: 900px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.skills-heading {
-  font-size: 56px;
-  font-weight: 400;
-}
-.subTitle {
-  color: #868e96;
-}
-
-/* Media Query */
-@media (max-width: 1380px) {
-  .skills-heading {
-    font-size: 40px;
+@media (max-width: 600px) {
+  .bento {
+    grid-template-columns: 1fr;
   }
-}
-@media (max-width: 768px) {
-  .skills-heading {
-    font-size: 30px;
-    text-align: center;
+  .bento-stack {
+    grid-column: auto;
   }
-  .greeting-text-p {
-    font-size: 16px;
-    line-height: normal;
-  }
-  .skills-main-div {
-    flex-direction: column;
-  }
-  .skills-text-div {
-    margin-left: 0px;
-    margin: 20px;
-  }
-  .skills-text {
-    font-size: 16px;
-  }
-  .skills-text-subtitle {
-    font-size: 16px;
-    text-align: center;
-  }
-  .skills-image-div {
-    /* display: none; */
-    order: 2;
+  .bento .card {
+    padding: 22px;
   }
 }

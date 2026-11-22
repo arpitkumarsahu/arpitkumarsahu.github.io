@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
-// import Headroom from "react-headroom";
+import React, {useEffect, useRef, useState} from "react";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import StyleContext from "../../contexts/StyleContext";
+import useActiveSection from "../../hooks/useActiveSection";
+import {openResume} from "../../utils/resume";
 import {
   greeting,
   workExperiences,
   skillsSection,
-  openSource,
   blogSection,
   talkSection,
   achievementSection,
@@ -15,103 +14,84 @@ import {
   educationInfo,
 } from "../../portfolio";
 
-function Header() {
-  const { isDark } = useContext(StyleContext);
-  const viewGreeting = greeting.displayGreeting;
-  const viewExperience = workExperiences.display;
-  const viewOpenSource = openSource.display;
-  const viewSkills = skillsSection.display;
-  const viewAchievement = achievementSection.display;
-  const viewBlog = blogSection.display;
-  const viewTalks = talkSection.display;
-  const viewProjects = bigProjects.display;
-  const viewEducation = educationInfo.display;
+const NAV_ITEMS = [
+  {id: "app", label: "App", show: true},
+  {id: "skills", label: "Skills", show: skillsSection.display},
+  {id: "education", label: "Education", show: educationInfo.display},
+  {id: "experience", label: "Experience", show: workExperiences.display},
+  {id: "projects", label: "Projects", show: bigProjects.display},
+  {id: "achievements", label: "Achievements", show: achievementSection.display},
+  {id: "blogs", label: "Blogs", show: blogSection.display},
+  {id: "talks", label: "Talks", show: talkSection.display},
+  {id: "contact", label: "Contact", show: true},
+].filter(item => item.show);
 
-  const handleClick = ()=>{
-    window.open("https://drive.google.com/file/d/1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U/view?usp=sharing")
-    const url = "https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download";
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'file.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-  }
+const SECTION_IDS = ["greeting", ...NAV_ITEMS.map(item => item.id)];
+
+function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const progressRef = useRef(null);
+  const active = useActiveSection(SECTION_IDS);
+  const handle = greeting.username.split(" ")[0].toLowerCase();
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${progress})`;
+      setScrolled(window.scrollY > 8);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, {passive: true});
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   return (
-    <>
-      <header id = "nav-menu" className={isDark ? "dark-menu header" : "header"}>
-        <a href="/" className="logo">
-          <span className="grey-color"> &lt;</span>
-          <span className="logo-name">{greeting.username}</span>
-          <span className="grey-color">/&gt;</span>
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
+      <div className="container nav">
+        <a href="#greeting" className="brand" aria-label={`${greeting.username}, back to top`}>
+          <span className="brand-prefix">~/</span>
+          {handle}
+          <span className="brand-cursor" aria-hidden="true">
+            _
+          </span>
         </a>
-        <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label
-          className="menu-icon"
-          htmlFor="menu-btn"
-          style={{ color: "white" }}
-        >
-          <span className={isDark ? "navicon navicon-dark" : "navicon"}></span>
-        </label>
-        <ul className={isDark ? "dark-menu menu" : "menu"}>
-          <li>
-            <a onClick={handleClick} >Resume</a>
-          </li>
-          {viewGreeting && (
-            <li>
-              <a href="#greeting">Home</a>
-            </li>
-          )}
-          {viewSkills && (
-            <li>
-              <a href="#skills">Skills</a>
-            </li>
-          )}
 
-          {viewEducation && (
-            <li>
-              <a href="#education">About me</a>
-            </li>
-          )}
-
-          {/* {viewExperience && (
-            <li>
-              <a href="#experience">Work Experiences</a>
-            </li>
-          )} */}
-          {viewProjects && (
-            <li>
-              <a href="#projects">Projects</a>
-            </li>
-          )}
-
-          {viewAchievement && (
-            <li>
-              <a href="#achievements">Achievements</a>
-            </li>
-          )}
-          {viewBlog && (
-            <li>
-              <a href="#blogs">Blogs</a>
-            </li>
-          )}
-          {viewTalks && (
-            <li>
-              <a href="#talks">Talks</a>
-            </li>
-          )}
-          <li>
-            <a href="#contact">Contact Me</a>
-          </li>
-          <li>
-            <a href="#">
-              <ToggleSwitch />
+        <nav className="nav-links" aria-label="Primary">
+          {NAV_ITEMS.map(item => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={active === item.id ? "is-active" : ""}
+              aria-current={active === item.id ? "true" : undefined}
+            >
+              {item.label}
             </a>
-          </li>
-        </ul>
-      </header>
-    </>
+          ))}
+        </nav>
+
+        <div className="nav-actions">
+          <button type="button" className="btn btn-ghost btn-sm nav-resume" onClick={openResume} data-magnetic>
+            <i className="fas fa-download" aria-hidden="true"></i>
+            <span className="nav-resume-text">Resume</span>
+          </button>
+          <ToggleSwitch />
+        </div>
+      </div>
+      <div className="scroll-progress" aria-hidden="true">
+        <span ref={progressRef} />
+      </div>
+    </header>
   );
 }
 export default Header;

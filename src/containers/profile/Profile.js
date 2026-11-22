@@ -59,14 +59,17 @@ export default function Profile() {
         openSource.showGithubProfile = "false";
       });
   }
+  // Without a GitHub token the GraphQL call can only fail, so go straight to Contact.
+  const canShowProfile =
+    Boolean(openSource.githubConvertedToken) && openSource.showGithubProfile === "true";
   useEffect(() => {
-    if (openSource.showGithubProfile === "true") {
+    if (canShowProfile) {
       getProfileData();
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (
     openSource.display &&
-    openSource.showGithubProfile === "true" &&
+    canShowProfile &&
     !(typeof prof === "string" || prof instanceof String)
   ) {
     return (

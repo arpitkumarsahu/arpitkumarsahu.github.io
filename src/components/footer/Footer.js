@@ -1,16 +1,16 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./Footer.css";
-import {Fade} from "react-reveal";
-import emoji from "react-easy-emoji";
-import StyleContext from "../../contexts/StyleContext";
+import {greeting} from "../../portfolio";
 
 export default function Footer() {
-  const {isDark} = useContext(StyleContext);
   return (
-    <Fade bottom duration={1000} distance="5px">
-      <div className="footer-div">
-       
+    <footer className="site-footer">
+      <div className="container footer-inner">
+        <span>
+          © {new Date().getFullYear()} {greeting.username}
+        </span>
+        <span className="mono footer-meta">built with react · hosted on github pages</span>
       </div>
-    </Fade>
+    </footer>
   );
 }

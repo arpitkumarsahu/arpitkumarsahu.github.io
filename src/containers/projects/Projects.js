@@ -15,9 +15,13 @@ export default function Projects() {
   const [repo, setrepo] = useState([]);
   // todo: remove useContex because is not supported
   const { isDark } = useContext(StyleContext);
+  // Pinned repos need a GitHub token; without one, skip the request and render nothing.
+  const hasToken = Boolean(openSource.githubConvertedToken);
   useEffect(() => {
-    getRepoData();
-  }, []);
+    if (hasToken) {
+      getRepoData();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getRepoData() {
     const client = new ApolloClient({
@@ -79,6 +83,7 @@ export default function Projects() {
     setrepo(array);
   }
   if (
+    hasToken &&
     !(typeof repo === "string" || repo instanceof String) &&
     openSource.display
   ) {

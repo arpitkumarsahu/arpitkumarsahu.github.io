@@ -1,24 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, {useContext} from "react";
 import StyleContext from "../../contexts/StyleContext";
 import "./ToggleSwitch.css";
 
+/** Light/dark theme toggle shown in the header. */
 const ToggleSwitch = () => {
-  const { isDark } = useContext(StyleContext);
-  const [isChecked, setChecked] = useState(isDark);
-  const styleContext = useContext(StyleContext);
+  const {isDark, changeTheme} = useContext(StyleContext);
+  const label = isDark ? "Switch to light theme" : "Switch to dark theme";
 
   return (
-    <label className="switch">
-      <input
-        type="checkbox"
-        checked={isDark}
-        onChange={() => {
-          styleContext.changeTheme();
-          setChecked(!isChecked);
-        }}
-      />
-      <span className="slider round"></span>
-    </label>
+    <button type="button" className="theme-toggle" onClick={changeTheme} aria-label={label} title={label}>
+      <i className={isDark ? "fas fa-sun" : "fas fa-moon"} aria-hidden="true"></i>
+    </button>
   );
 };
 export default ToggleSwitch;

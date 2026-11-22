@@ -1,0 +1,730 @@
+/* Device frame ----------------------------------------------------------- */
+.phone {
+  --phone-w: 290px;
+  position: relative;
+  width: var(--phone-w);
+  aspect-ratio: 290 / 600;
+  padding: 10px;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #2b2b31, #0c0c0e 40%, #1d1d22);
+  box-shadow: inset 0 0 0 1.5px #3a3a42, inset 0 0 0 4px #0a0a0b, 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 50px 80px -30px rgba(0, 0, 0, 0.7), 0 30px 60px -40px var(--accent-glow);
+}
+
+[data-theme="light"] .phone {
+  box-shadow: inset 0 0 0 1.5px #3a3a42, inset 0 0 0 4px #0a0a0b, 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 50px 80px -34px rgba(0, 0, 0, 0.45), 0 30px 60px -40px var(--accent-glow);
+}
+
+.phone-btn {
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: #2a2a30;
+}
+
+.phone-btn-action {
+  left: -3px;
+  top: 96px;
+  height: 26px;
+}
+.phone-btn-vol-up {
+  left: -3px;
+  top: 140px;
+  height: 46px;
+}
+.phone-btn-vol-down {
+  left: -3px;
+  top: 196px;
+  height: 46px;
+}
+.phone-btn-power {
+  right: -3px;
+  top: 160px;
+  height: 70px;
+}
+
+.phone-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-island {
+  position: absolute;
+  z-index: 6;
+  top: 9px;
+  left: 50%;
+  width: 92px;
+  height: 27px;
+  margin-left: -46px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.phone-status {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+  padding: 0 24px 0 30px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.phone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+}
+
+.phone-battery {
+  position: relative;
+  width: 22px;
+  height: 11px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  padding: 1px;
+  opacity: 0.9;
+}
+
+.phone-battery span {
+  display: block;
+  width: 76%;
+  height: 100%;
+  border-radius: 1.5px;
+  background: currentColor;
+}
+
+.phone-battery::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 3px;
+  width: 1.5px;
+  height: 3px;
+  border-radius: 0 1px 1px 0;
+  background: currentColor;
+}
+
+/* Notification banner ----------------------------------------------------- */
+.phone-notification {
+  position: absolute;
+  z-index: 7;
+  top: 44px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  /* Solid surface: backdrop-filter doesn't render inside the 3D-tilted phone. */
+  background: var(--bg-elev);
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
+  text-align: left;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-120%) scale(0.96);
+  transition: transform 0.6s var(--spring), opacity 0.35s ease;
+}
+
+.phone-notification.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.phone-notification-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 14px;
+}
+
+.phone-notification-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+}
+
+.phone-notification-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.phone-notification-head em {
+  font-style: normal;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.phone-notification-text {
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Screens ------------------------------------------------------------------
+   Panes sit side by side; --tab slides them like an iOS tab/stack transition. */
+.app-viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-pane {
+  position: absolute;
+  inset: 0;
+  transform: translateX(calc((var(--pane) - var(--tab)) * 100%));
+  opacity: 0.35;
+  transition: transform 0.55s var(--ease), opacity 0.4s ease;
+}
+
+.app-pane.is-current {
+  opacity: 1;
+}
+
+.app-screen {
+  height: 100%;
+  padding: 8px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Vertical swipes scroll the screen (and don't spill over into the page). */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+/* Flex/grid children may shrink below their text width, so long names ellipsize. */
+.app-screen > * {
+  min-width: 0;
+}
+
+.app-screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* Profile screen boots in, one block after another. */
+.app-profile-screen > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--ease), transform 0.7s var(--ease);
+}
+
+.app-profile-screen.is-booted > * {
+  opacity: 1;
+  transform: none;
+}
+
+.app-profile-screen.is-booted > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+.app-profile-screen.is-booted > *:nth-child(3) {
+  transition-delay: 0.16s;
+}
+.app-profile-screen.is-booted > *:nth-child(4) {
+  transition-delay: 0.24s;
+}
+
+.app-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.app-avatar {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  padding: 3px;
+  border-radius: 50%;
+  background: conic-gradient(from 140deg, var(--accent), transparent 55%, var(--accent));
+}
+
+.app-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--bg);
+}
+
+.app-online {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 3px solid var(--bg);
+}
+
+.app-profile h3 {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.app-profile p {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.app-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+}
+
+.app-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9px 0;
+}
+
+.app-stat + .app-stat {
+  border-left: 1px solid var(--border);
+}
+
+.app-stat strong {
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-stat span {
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.app-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.3s var(--spring), background-color 0.2s ease;
+}
+
+.app-btn:active {
+  transform: scale(0.94);
+}
+
+.app-btn-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.app-label {
+  margin-bottom: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+/* List row (Featured + Projects screen) */
+.app-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.3s var(--spring), border-color 0.2s ease;
+}
+
+.app-row:hover {
+  border-color: var(--border-strong);
+}
+
+.app-row:active {
+  transform: scale(0.96);
+}
+
+.app-row img {
+  flex-shrink: 0;
+  width: 54px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.app-row-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.app-row-text strong {
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-row-text span {
+  font-size: 10.5px;
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-row i {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* Stack screen: a home screen + dock */
+.app-home-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.app-home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px 6px;
+}
+
+.app-home-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s ease, transform 0.55s var(--spring);
+}
+
+.app-home.is-active .app-home-icon {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.12s + var(--i) * 45ms);
+}
+
+.app-home-icon .app-icon-tile {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+.app-home-name {
+  max-width: 100%;
+  font-size: 9.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-dock {
+  display: flex;
+  justify-content: space-around;
+  margin-top: auto;
+  padding: 10px 8px;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+
+.app-dock-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--dock-bg);
+  color: #fff;
+  font-size: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.35s var(--spring);
+}
+
+.app-dock-icon:hover {
+  transform: translateY(-3px) scale(1.06);
+}
+
+.app-dock-icon:active {
+  transform: scale(0.9);
+}
+
+/* Projects screen */
+.app-large-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.app-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+/* Chat screen */
+.app-chat {
+  gap: 12px;
+}
+
+.app-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-chat-head img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.app-chat-head span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.app-chat-head strong {
+  font-size: 13px;
+}
+
+.app-chat-head em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: #22c55e;
+}
+
+.app-chat-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 9px 12px;
+  border-radius: 16px 16px 16px 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  animation: bubble-in 0.5s var(--spring) both;
+  animation-delay: var(--d, 0s);
+  transform-origin: left bottom;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(8px);
+  }
+}
+
+.bubble-typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 14px;
+}
+
+.bubble-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  animation: typing 1s ease-in-out infinite;
+}
+
+.bubble-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.bubble-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.app-chat-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.app-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s var(--spring);
+}
+
+.app-chip:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.app-chip:active {
+  transform: scale(0.93);
+}
+
+/* Tab bar + home indicator */
+.phone-tabbar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 56px;
+  margin: 0 8px;
+  border-top: 1px solid var(--border);
+}
+
+.phone-tab-indicator {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 25%;
+  height: 44px;
+  transform: translateX(calc(var(--tab) * 100%));
+  transition: transform 0.5s var(--spring);
+}
+
+.phone-tab-indicator::before {
+  content: "";
+  position: absolute;
+  inset: 0 10px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+}
+
+.phone-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.3s var(--spring);
+}
+
+.phone-tab span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.phone-tab:active {
+  transform: scale(0.88);
+}
+
+.phone-tab.is-active {
+  color: var(--accent);
+}
+
+.phone-home {
+  width: 110px;
+  height: 4px;
+  margin: 2px auto 8px;
+  border-radius: 4px;
+  background: var(--text);
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-profile-screen > *,
+  .app-home-icon,
+  .app-pane,
+  .bubble {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}

@@ -1,0 +1,219 @@
+.timeline {
+  --progress: 0;
+  position: relative;
+  display: grid;
+  gap: 14px;
+}
+
+/* Base rail plus an accent rail that fills with scroll progress (--progress). */
+.timeline::before,
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: 23.5px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+}
+
+.timeline::before {
+  background: var(--border);
+}
+
+.timeline::after {
+  width: 2px;
+  margin-left: -0.5px;
+  background: linear-gradient(var(--accent), var(--accent) 85%, transparent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform-origin: top;
+  transform: scaleY(var(--progress));
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.timeline-marker {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  margin-top: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 6px var(--bg);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.5s var(--spring);
+}
+
+.timeline-item.is-reached .timeline-marker {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--accent-soft), 0 0 24px var(--accent-glow);
+  transform: scale(1.04);
+}
+
+.timeline-marker img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.timeline-card {
+  overflow: hidden;
+}
+
+.timeline-item:hover .timeline-card,
+.timeline-item.is-open .timeline-card {
+  border-color: var(--border-strong);
+}
+
+.timeline-toggle {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 20px 64px 20px 24px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  flex-wrap: wrap;
+}
+
+.timeline-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.timeline-date {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.timeline-subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.timeline-chevron {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  font-size: 11px;
+  transition: transform 0.45s var(--spring), background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.timeline-item.is-open .timeline-chevron {
+  transform: rotate(45deg);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Smooth height animation via the grid 0fr -> 1fr technique. */
+.timeline-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease);
+}
+
+.timeline-item.is-open .timeline-panel {
+  grid-template-rows: 1fr;
+}
+
+.timeline-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease, transform 0.45s var(--ease), padding 0.5s var(--ease);
+}
+
+.timeline-item.is-open .timeline-panel-inner {
+  padding-bottom: 20px;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.08s;
+}
+
+.timeline-desc {
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.timeline-bullets {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.timeline-bullets li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.timeline-bullets li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .timeline::before,
+  .timeline::after {
+    left: 19.5px;
+  }
+  .timeline-item {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .timeline-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  .timeline-toggle {
+    padding: 16px 52px 16px 18px;
+  }
+  .timeline-chevron {
+    right: 14px;
+  }
+  .timeline-panel-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .timeline-item.is-open .timeline-panel-inner {
+    padding-bottom: 16px;
+  }
+}

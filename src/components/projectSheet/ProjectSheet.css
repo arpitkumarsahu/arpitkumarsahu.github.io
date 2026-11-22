@@ -1,0 +1,421 @@
+.sheet-root {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  padding: 32px 24px;
+}
+
+.sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 6, 0.62);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+[data-theme="light"] .sheet-backdrop {
+  background: rgba(24, 24, 27, 0.35);
+}
+
+.sheet-panel {
+  position: relative;
+  width: min(940px, 100%);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  background: var(--bg-card);
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: opacity 0.4s ease, transform 0.56s var(--ease);
+}
+
+/* "measure" renders the final layout invisibly so the image can be measured. */
+.sheet-root.is-measure .sheet-panel {
+  transition: none;
+  transform: none;
+  visibility: hidden;
+}
+
+.sheet-root.is-enter .sheet-panel {
+  transition: none;
+}
+
+.sheet-root.is-open .sheet-backdrop {
+  opacity: 1;
+}
+
+.sheet-root.is-open .sheet-panel {
+  opacity: 1;
+  transform: none;
+}
+
+.sheet-root.is-closing .sheet-backdrop {
+  opacity: 0;
+}
+
+.sheet-root.is-closing .sheet-panel {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 0.35s ease 0.1s, transform 0.5s var(--ease);
+}
+
+/* While the screenshot is flying, hide the real one so the copy stands in for it. */
+.sheet-root.is-flying .browser-viewport img {
+  visibility: hidden;
+}
+
+.sheet-fly {
+  position: fixed;
+  z-index: 1002;
+  margin: 0;
+  object-fit: cover;
+  object-position: top center;
+  transform-origin: top left;
+  pointer-events: none;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.sheet-grabber {
+  display: none;
+}
+
+.sheet-close {
+  position: absolute;
+  z-index: 5;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.4s var(--spring), border-color 0.2s ease, color 0.2s ease;
+}
+
+.sheet-close:hover {
+  transform: rotate(90deg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Browser-window frame around the screenshot */
+.browser {
+  margin: 14px 14px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-elev);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 40px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.browser-dots span:nth-child(1) {
+  background: #ff5f57;
+}
+.browser-dots span:nth-child(2) {
+  background: #febc2e;
+}
+.browser-dots span:nth-child(3) {
+  background: #28c840;
+}
+
+.browser-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 5px 14px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.browser-url i {
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.browser-url:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.browser-viewport {
+  /* Explicit width so the height cap crops the screenshot instead of narrowing it. */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* Keep the whole sheet (links included) on screen on laptop-height displays. */
+  max-height: 46vh;
+  background: var(--bg);
+}
+
+.browser-viewport img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Content swaps with a quick fade when navigating between projects. */
+.sheet-content {
+  padding: 26px 30px 8px;
+  animation: sheet-swap 0.5s var(--ease);
+}
+
+@keyframes sheet-swap {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.sheet-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sheet-index {
+  font-size: 12.5px;
+  color: var(--accent);
+}
+
+.sheet-heading h3 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.sheet-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 32px;
+  margin-top: 18px;
+}
+
+.sheet-desc {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.sheet-label {
+  margin-bottom: 10px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.sheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* Stays pinned to the bottom of the sheet so you can always flip projects. */
+.sheet-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 22px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.sheet-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 30px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sheet-nav-btn + .sheet-nav-btn {
+  border-left: 1px solid var(--border);
+}
+
+.sheet-nav-btn:hover {
+  background: var(--bg-hover);
+}
+
+.sheet-nav-btn.is-next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.sheet-nav-btn span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sheet-nav-btn em {
+  font-style: normal;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sheet-nav-btn i {
+  font-size: 12px;
+  color: var(--text-faint);
+  transition: transform 0.3s var(--ease), color 0.2s ease;
+}
+
+.sheet-nav-btn:hover i {
+  color: var(--accent);
+  transform: translateX(-3px);
+}
+
+.sheet-nav-btn.is-next:hover i {
+  transform: translateX(3px);
+}
+
+/* Phones: a native-style bottom sheet with a drag handle. */
+@media (max-width: 720px) {
+  .sheet-root {
+    place-items: end stretch;
+    padding: 0;
+  }
+
+  .sheet-panel {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 24px 24px 0 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    transform: translateY(100%);
+    transition: opacity 0.2s ease, transform 0.56s var(--ease);
+  }
+
+  .sheet-root.is-closing .sheet-panel {
+    opacity: 1;
+    transform: translateY(100%);
+    transition: transform 0.45s var(--ease);
+  }
+
+  .sheet-panel.is-dragging {
+    transition: none;
+  }
+
+  .sheet-grabber {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 4px;
+    touch-action: none;
+  }
+
+  .sheet-grabber span {
+    width: 40px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--border-strong);
+  }
+
+  .sheet-media {
+    touch-action: none;
+  }
+
+  .sheet-close {
+    top: 22px;
+    right: 22px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .browser {
+    margin: 6px 12px 0;
+  }
+
+  .browser-bar {
+    height: 36px;
+  }
+
+  .browser-url {
+    max-width: 70%;
+  }
+
+  .sheet-content {
+    padding: 20px 18px 4px;
+  }
+
+  .sheet-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .sheet-desc {
+    font-size: 15.5px;
+  }
+
+  .sheet-actions .btn {
+    flex: 1 1 140px;
+  }
+
+  .sheet-nav-btn {
+    padding: 16px 18px;
+  }
+
+  .sheet-nav-btn span {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-panel,
+  .sheet-backdrop,
+  .sheet-content {
+    transition: none;
+    animation: none;
+  }
+}

@@ -2,119 +2,37 @@ import React from "react";
 import "./SocialMedia.css";
 import {socialMediaLinks} from "../../portfolio";
 
-export default function socialMedia() {
+const NETWORKS = [
+  {key: "github", label: "GitHub", icon: "fab fa-github"},
+  {key: "linkedin", label: "LinkedIn", icon: "fab fa-linkedin-in"},
+  {key: "gmail", label: "Email", icon: "fas fa-envelope", href: v => `mailto:${v}`},
+  {key: "gitlab", label: "GitLab", icon: "fab fa-gitlab"},
+  {key: "facebook", label: "Facebook", icon: "fab fa-facebook-f"},
+  {key: "instagram", label: "Instagram", icon: "fab fa-instagram"},
+  {key: "twitter", label: "Twitter", icon: "fab fa-twitter"},
+  {key: "medium", label: "Medium", icon: "fab fa-medium"},
+  {key: "stackoverflow", label: "Stack Overflow", icon: "fab fa-stack-overflow"},
+];
+
+export default function SocialMedia() {
   if (!socialMediaLinks.display) {
     return null;
   }
   return (
     <div className="social-media-div">
-      {socialMediaLinks.github ? (
+      {NETWORKS.filter(n => socialMediaLinks[n.key]).map(n => (
         <a
-          href={socialMediaLinks.github}
-          className="icon-button github"
+          key={n.key}
+          href={n.href ? n.href(socialMediaLinks[n.key]) : socialMediaLinks[n.key]}
+          className="social-link"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={n.label}
+          title={n.label}
         >
-          <i className="fab fa-github"></i>
-          <span></span>
+          <i className={n.icon} aria-hidden="true"></i>
         </a>
-      ) : null}
-
-      {socialMediaLinks.linkedin ? (
-        <a
-          href={socialMediaLinks.linkedin}
-          className="icon-button linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-linkedin-in"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.gmail ? (
-        <a
-          href={`mailto:${socialMediaLinks.gmail}`}
-          className="icon-button google"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-google"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.gitlab ? (
-        <a
-          href={socialMediaLinks.gitlab}
-          className="icon-button gitlab"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-gitlab"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.facebook ? (
-        <a
-          href={socialMediaLinks.facebook}
-          className="icon-button facebook"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-facebook-f"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.instagram ? (
-        <a
-          href={socialMediaLinks.instagram}
-          className="icon-button instagram"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-instagram"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.twitter ? (
-        <a
-          href={socialMediaLinks.twitter}
-          className="icon-button twitter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-twitter"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.medium ? (
-        <a
-          href={socialMediaLinks.medium}
-          className="icon-button medium"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-medium"></i>
-          <span></span>
-        </a>
-      ) : null}
-
-      {socialMediaLinks.stackoverflow ? (
-        <a
-          href={socialMediaLinks.stackoverflow}
-          className="icon-button stack-overflow"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-stack-overflow"></i>
-          <span></span>
-        </a>
-      ) : null}
+      ))}
     </div>
   );
 }

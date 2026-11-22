@@ -1,62 +1,88 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./Contact.css";
-import SocialMedia from "../../components/socialMedia/SocialMedia";
-import {illustration, contactInfo} from "../../portfolio";
-import {Fade} from "react-reveal";
-import email from "../../assets/lottie/email";
-import DisplayLottie from "../../components/displayLottie/DisplayLottie";
-import StyleContext from "../../contexts/StyleContext";
+import Reveal from "../../components/reveal/Reveal";
+import SplitText from "../../components/reveal/SplitText";
+import {contactInfo, socialMediaLinks} from "../../portfolio";
+
+// "https://github.com/arpitkumarsahu/" -> "github.com/arpitkumarsahu"
+const prettyUrl = url => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 export default function Contact() {
-  const {isDark} = useContext(StyleContext);
+  const rows = [
+    contactInfo.email_address && {
+      label: "email",
+      value: contactInfo.email_address,
+      href: `mailto:${contactInfo.email_address}`,
+      icon: "fas fa-envelope",
+    },
+    contactInfo.number && {
+      label: "phone",
+      value: contactInfo.number,
+      href: `tel:${contactInfo.number}`,
+      icon: "fas fa-phone",
+    },
+    socialMediaLinks.github && {
+      label: "github",
+      value: prettyUrl(socialMediaLinks.github),
+      href: socialMediaLinks.github,
+      icon: "fab fa-github",
+      external: true,
+    },
+    socialMediaLinks.linkedin && {
+      label: "linkedin",
+      value: prettyUrl(socialMediaLinks.linkedin),
+      href: socialMediaLinks.linkedin,
+      icon: "fab fa-linkedin-in",
+      external: true,
+    },
+    socialMediaLinks.twitter && {
+      label: "twitter",
+      value: prettyUrl(socialMediaLinks.twitter),
+      href: socialMediaLinks.twitter,
+      icon: "fab fa-twitter",
+      external: true,
+    },
+  ].filter(Boolean);
+
   return (
-    <Fade bottom duration={1000} distance="20px">
-      <div className="main contact-margin-top" id="contact">
-        <div className="contact-div-main">
-          <div className="contact-header">
-            <h1 className="heading contact-title">{contactInfo.title}</h1>
-            <p
-              className={
-                isDark
-                  ? "dark-mode contact-subtitle"
-                  : "subTitle contact-subtitle"
-              }
-            >
-              {contactInfo.subtitle}
-            </p>
-            <div
-              className={
-                isDark ? "dark-mode contact-text-div" : "contact-text-div"
-              }
-            >
-              <a className="contact-detail" href={"tel:" + contactInfo.number}>
-                {contactInfo.number}
+    <section className="section" id="contact">
+      <div className="container">
+        <Reveal className="card contact-card" variant="blur">
+          <div className="contact-copy">
+            <span className="eyebrow">06 / contact</span>
+            <h2 className="contact-title">
+              <SplitText text={contactInfo.title} startDelay={150} />
+            </h2>
+            <p className="contact-subtitle">{contactInfo.subtitle}</p>
+            {contactInfo.email_address ? (
+              <a className="btn btn-primary contact-cta" href={`mailto:${contactInfo.email_address}`} data-magnetic>
+                Say hello <i className="fas fa-arrow-right" aria-hidden="true"></i>
               </a>
-              <br />
-              <br />
-              <a
-                className="contact-detail-email"
-                href={"mailto:" + contactInfo.email_address}
-              >
-                {contactInfo.email_address}
-              </a>
-              <br />
-              <br />
-              <SocialMedia />
-            </div>
+            ) : null}
           </div>
-          <div className="contact-image-div">
-            {illustration.animated ? (
-              <DisplayLottie animationData={email} />
-            ) : (
-              <img
-                alt="Man working"
-                src={require("../../assets/images/contactMailDark.svg")}
-              ></img>
-            )}
-          </div>
-        </div>
+
+          <ul className="contact-list">
+            {rows.map((row, i) => (
+              <Reveal as="li" key={row.label} variant="right" delay={200 + i * 90}>
+                <a
+                  className="contact-row"
+                  href={row.href}
+                  {...(row.external ? {target: "_blank", rel: "noopener noreferrer"} : {})}
+                >
+                  <span className="contact-row-icon">
+                    <i className={row.icon} aria-hidden="true"></i>
+                  </span>
+                  <span className="contact-row-text">
+                    <span className="contact-row-label mono">{row.label}</span>
+                    <span className="contact-row-value">{row.value}</span>
+                  </span>
+                  <i className="fas fa-arrow-right contact-row-arrow" aria-hidden="true"></i>
+                </a>
+              </Reveal>
+            ))}
+          </ul>
+        </Reveal>
       </div>
-    </Fade>
+    </section>
   );
 }

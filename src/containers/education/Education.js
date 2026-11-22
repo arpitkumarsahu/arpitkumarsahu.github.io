@@ -1,20 +1,27 @@
 import React from "react";
-import "./Education.css";
-import EducationCard from "../../components/educationCard/EducationCard";
+import SectionHeader from "../../components/sectionHeader/SectionHeader";
+import Timeline from "../../components/timeline/Timeline";
 import {educationInfo} from "../../portfolio";
 
 export default function Education() {
-  if (educationInfo.display) {
-    return (
-      <div className="education-section" id="education">
-        <h1 className="education-heading">Education</h1>
-        <div className="education-card-container">
-          {educationInfo.schools.map(school => (
-            <EducationCard school={school} />
-          ))}
-        </div>
-      </div>
-    );
+  if (!educationInfo.display) {
+    return null;
   }
-  return null;
+  const items = educationInfo.schools.map(school => ({
+    logo: school.logo,
+    title: school.schoolName,
+    subtitle: school.subHeader,
+    date: school.duration,
+    desc: school.desc,
+    bullets: school.descBullets,
+  }));
+
+  return (
+    <section className="section" id="education">
+      <div className="container narrow">
+        <SectionHeader index="03" label="education" title="Education" />
+        <Timeline items={items} />
+      </div>
+    </section>
+  );
 }

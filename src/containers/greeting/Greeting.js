@@ -1,89 +1,80 @@
-import React, {useContext} from "react";
-import {Fade} from "react-reveal";
-import emoji from "react-easy-emoji";
+import React from "react";
 import "./Greeting.css";
-import landingPerson from "../../assets/lottie/landingPerson";
-import DisplayLottie from "../../components/displayLottie/DisplayLottie";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
-import Button from "../../components/button/Button";
+import Reveal from "../../components/reveal/Reveal";
+import SplitText from "../../components/reveal/SplitText";
+import {greeting, openSource} from "../../portfolio";
+import {openResume} from "../../utils/resume";
+import portrait from "../../assets/images/Arpit-hero.jpg";
+import avatar from "../../assets/images/Arpit.jpg";
 
-import {illustration, greeting} from "../../portfolio";
-import StyleContext from "../../contexts/StyleContext";
-import arpit from '../../assets/images/Arpit.png'
-
-
-
+const ROLE = "Full Stack Web Developer";
 
 export default function Greeting() {
-  
-
-  const {isDark} = useContext(StyleContext);
   if (!greeting.displayGreeting) {
     return null;
   }
 
-  const handleClick = ()=>{
-    window.open("https://drive.google.com/file/d/1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U/view?usp=sharing")
-    const url = "https://drive.google.com/u/0/uc?id=1CTVIrO6Zrdu-FQJbVob93QevwWAP6l0U&export=download";
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'file.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-  }
   return (
-    <Fade bottom duration={1000} distance="40px">
-      <div className="greet-main" id="greeting">
-        <div className="greeting-main">
-          <div className="greeting-text-div">
-            <div>
-              <h2
-                className={isDark ? "dark-mode greeting-text" : "greeting-text"}
-              >
-                {" "}
-                {greeting.title}{" "}
-                {/* <span className="wave-emoji">{emoji("👋")}</span> */}
-              </h2>
-              <p
-                className={
-                  isDark
-                    ? "dark-mode greeting-text-p"
-                    : "greeting-text-p subTitle"
-                }
-              >
-                {greeting.subTitle}
-              </p>
-              <SocialMedia />
-              <div className="button-greeting-div">
-                <Button text="Contact me" href="#contact" />
-                
-                <Button
-                  text="See my resume"
-                  newTab={true}
-                  href={greeting.resumeLink}
-                  onClick={handleClick}
-                />
-                
-                
-              </div>
-            </div>
-          </div>
-          <div className="greeting-image-div">
-            {illustration.animated ? (
-              <div>
-                  <img style={{borderRadius:"50%"}} width="90%" height="100%" src={arpit} alt=""/>
-             </div>
+    <section className="hero" id="greeting">
+      <div className="hero-backdrop" aria-hidden="true" />
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          {/* Phones: a native-app style profile header instead of a big photo card. */}
+          <Reveal variant="blur" className="hero-profile">
+            <span className="hero-profile-photo">
+              <img src={avatar} alt={greeting.username} width="480" height="480" />
+              <span className="hero-profile-status" aria-hidden="true" />
+            </span>
+            <span className="hero-profile-text">
+              <strong>{greeting.username}</strong>
+              <span>{ROLE}</span>
+              {openSource.githubUserName ? (
+                <em className="mono">@{openSource.githubUserName}</em>
+              ) : null}
+            </span>
+          </Reveal>
 
-            ) : (
-              <img
-                alt="man sitting on table"
-                src={require("../../assets/images/manOnTable.svg")}
-              ></img>
-            )}
-          </div>
+          <Reveal variant="blur" className="hero-eyebrow-wrap">
+            <span className="hero-eyebrow">
+              <span className="hero-dot" aria-hidden="true" />
+              {greeting.username}
+            </span>
+          </Reveal>
+          <Reveal as="h1" variant="none" className="hero-title" delay={120}>
+            <SplitText text={greeting.title} step={90} />
+            <span className="split-word" aria-hidden="true">
+              <span className="split-word-inner hero-title-accent" style={{"--word-delay": "420ms"}}>
+                .
+              </span>
+            </span>
+          </Reveal>
+          <Reveal variant="blur" delay={420}>
+            <p className="hero-sub">{greeting.subTitle}</p>
+          </Reveal>
+          <Reveal variant="blur" delay={540} className="hero-actions">
+            <a className="btn btn-primary" href="#contact" data-magnetic>
+              Contact me <i className="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <button type="button" className="btn btn-ghost" onClick={openResume} data-magnetic>
+              <i className="fas fa-download" aria-hidden="true"></i> See my resume
+            </button>
+          </Reveal>
+          <Reveal variant="blur" delay={660}>
+            <SocialMedia />
+          </Reveal>
         </div>
+
+        {/* Desktop: a large portrait whose dark backdrop fades into the page.
+            Nothing is layered on top of it. */}
+        <Reveal variant="blur" delay={200} className="hero-portrait">
+          <img src={portrait} alt="" width="800" height="1000" />
+        </Reveal>
       </div>
-    </Fade>
+
+      <a className="scroll-cue" href="#app" aria-label="Scroll to the app">
+        <span />
+      </a>
+    </section>
   );
 }

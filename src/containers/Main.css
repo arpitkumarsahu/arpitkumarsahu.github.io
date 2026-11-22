@@ -1,5 +1,5 @@
-.dark-mode {
-  background-color: #171c28;
-  color: white;
-  transition: "0.1s";
+.site {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
 }

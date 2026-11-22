@@ -1,0 +1,142 @@
+.cursor {
+  display: none;
+  --cursor-hl: rgba(255, 255, 255, 0.07);
+  --cursor-hl-border: rgba(163, 230, 53, 0.4);
+}
+
+[data-theme="light"] .cursor {
+  --cursor-hl: rgba(24, 24, 27, 0.06);
+  --cursor-hl-border: rgba(77, 124, 15, 0.35);
+}
+
+html.has-custom-cursor .cursor {
+  display: block;
+}
+
+.cursor-blob,
+.cursor-highlight,
+.cursor-pill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0;
+}
+
+.cursor.is-visible .cursor-blob {
+  opacity: 1;
+}
+
+/* The dot inverts whatever is under it (white + difference works on both themes). */
+.cursor-blob {
+  z-index: 1002;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition: width 0.3s var(--ease), height 0.3s var(--ease), border-radius 0.3s var(--ease),
+    opacity 0.2s ease;
+}
+
+.cursor-blob.is-hover {
+  width: 36px;
+  height: 36px;
+}
+
+.cursor-blob.is-snap,
+.cursor-blob.is-label {
+  width: 6px;
+  height: 6px;
+}
+
+.cursor-blob.is-text {
+  width: 2.5px;
+  height: var(--caret-h, 20px);
+  border-radius: 2px;
+}
+
+/* iPad-style highlight that wraps buttons and links. */
+.cursor-highlight {
+  z-index: 999;
+  border: 1px solid var(--cursor-hl-border);
+  background: var(--cursor-hl);
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 10px 30px -12px var(--accent-glow);
+  transition: opacity 0.25s ease;
+}
+
+.cursor.is-visible .cursor-highlight.is-active {
+  opacity: 1;
+}
+
+/* Compact label that trails beside the pointer over cards. */
+.cursor-pill {
+  z-index: 1003;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+
+.cursor-pill-text,
+.cursor-pill-icon {
+  display: inline-block;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 0.35s var(--spring), opacity 0.2s ease;
+}
+
+.cursor-pill-icon {
+  font-size: 12px;
+  transition-delay: 0.05s;
+}
+
+.cursor.is-visible .cursor-pill.is-active {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-pill.is-active .cursor-pill-text,
+.cursor-pill.is-active .cursor-pill-icon {
+  transform: none;
+  opacity: 1;
+}
+
+.cursor-pill:not(.is-active) {
+  transition: opacity 0.15s ease;
+}
+
+/* Tap ripple */
+.cursor-ripple {
+  position: fixed;
+  z-index: 1001;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  pointer-events: none;
+  animation: cursor-ripple 0.6s var(--ease) forwards;
+}
+
+@keyframes cursor-ripple {
+  from {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}

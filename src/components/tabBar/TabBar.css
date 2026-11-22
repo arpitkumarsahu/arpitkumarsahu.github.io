@@ -1,0 +1,83 @@
+.tab-bar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .tab-bar {
+    --tab-count: 5;
+    position: fixed;
+    z-index: 60;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count), 1fr);
+    width: min(440px, calc(100% - 24px));
+    padding: 6px;
+    border-radius: 22px;
+    border: 1px solid var(--border-strong);
+    background: var(--header-bg);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+    box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+    transform: translateX(-50%);
+    transition: transform 0.45s var(--ease), opacity 0.3s ease;
+  }
+
+  .tab-bar.is-hidden {
+    transform: translate(-50%, calc(100% + 28px));
+    opacity: 0;
+  }
+
+  /* Pill that slides behind the active tab. */
+  .tab-bar-indicator {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    width: calc((100% - 12px) / var(--tab-count));
+    border-radius: 16px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-soft);
+    transform: translateX(calc(100% * var(--tab-index)));
+    transition: transform 0.5s var(--spring);
+  }
+
+  .tab-bar-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 0 6px;
+    border-radius: 16px;
+    color: var(--text-faint);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.25s ease, transform 0.3s var(--spring);
+  }
+
+  .tab-bar-item i {
+    font-size: 16px;
+    transition: transform 0.4s var(--spring);
+  }
+
+  .tab-bar-item:active {
+    transform: scale(0.9);
+  }
+
+  .tab-bar-item.is-active {
+    color: var(--accent);
+  }
+
+  .tab-bar-item.is-active i {
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  /* Leave room so the bar never covers the footer. */
+  body {
+    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  }
+}

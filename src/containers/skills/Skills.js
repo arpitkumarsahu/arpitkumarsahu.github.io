@@ -1,68 +1,47 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./Skills.css";
 import SoftwareSkill from "../../components/softwareSkills/SoftwareSkill";
-import {illustration, skillsSection} from "../../portfolio";
-import {Fade} from "react-reveal";
-import codingPerson from "../../assets/lottie/codingPerson";
-import DisplayLottie from "../../components/displayLottie/DisplayLottie";
-import StyleContext from "../../contexts/StyleContext";
+import SectionHeader from "../../components/sectionHeader/SectionHeader";
+import Reveal from "../../components/reveal/Reveal";
+import {skillsSection} from "../../portfolio";
+
+// The bullet text in portfolio.js starts with a "⚡" marker; the cards number themselves instead.
+const stripMarker = text => text.replace(/^\s*⚡\s*/u, "");
 
 export default function Skills() {
-  const {isDark} = useContext(StyleContext);
   if (!skillsSection.display) {
     return null;
   }
+  const [first, ...rest] = skillsSection.skills;
+
   return (
-    <div className={isDark ? "dark-mode main" : "main"} id="skills">
-      <div className="skills-main-div">
-        <Fade left duration={1000}>
-          <div className="skills-image-div">
-            {illustration.animated ? (
-              <DisplayLottie animationData={codingPerson} />
-            ) : (
-              <img
-                alt="Man Working"
-                src={require("../../assets/images/developerActivity.svg")}
-              ></img>
-            )}
-          </div>
-        </Fade>
-        <Fade right duration={1000}>
-          <div className="skills-text-div">
-            <h1
-              className={isDark ? "dark-mode skills-heading" : "skills-heading"}
-            >
-              {skillsSection.title}{" "}
-            </h1>
-            <p
-              className={
-                isDark
-                  ? "dark-mode subTitle skills-text-subtitle"
-                  : "subTitle skills-text-subtitle"
-              }
-            >
-              {skillsSection.subTitle}
-            </p>
+    <section className="section" id="skills">
+      <div className="container">
+        <SectionHeader index="02" label="skills" title={skillsSection.title} />
+
+        <div className="bento">
+          <Reveal className="card bento-stack spotlight" variant="blur">
+            <div className="bento-label mono">tech stack</div>
+            <p className="bento-tagline">{skillsSection.subTitle.toLowerCase()}</p>
             <SoftwareSkill />
-            <div>
-              {skillsSection.skills.map((skills, i) => {
-                return (
-                  <p
-                    key={i}
-                    className={
-                      isDark
-                        ? "dark-mode subTitle skills-text"
-                        : "subTitle skills-text"
-                    }
-                  >
-                    {skills}
-                  </p>
-                );
-              })}
-            </div>
-          </div>
-        </Fade>
+          </Reveal>
+
+          {first ? <SkillCard index={0} text={first} delay={80} /> : null}
+
+          {rest.map((text, i) => (
+            <SkillCard key={i} index={i + 1} text={text} delay={80 * (i + 1)} />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
+  );
+}
+
+function SkillCard({index, text, delay}) {
+  return (
+    <Reveal className="card bento-skill spotlight pressable" variant="blur" delay={delay}>
+      <span className="bento-index mono">{String(index + 1).padStart(2, "0")}</span>
+      <p>{stripMarker(text)}</p>
+    </Reveal>
   );
 }
