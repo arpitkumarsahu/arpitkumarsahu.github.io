@@ -213,9 +213,9 @@
   gap: 14px;
   overflow-x: hidden;
   overflow-y: auto;
-  /* Vertical swipes scroll the screen (and don't spill over into the page). */
+  /* Vertical swipes scroll the screen. No overscroll containment: when a
+     screen has nothing (left) to scroll, the wheel/swipe carries on to the page. */
   touch-action: pan-y;
-  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
